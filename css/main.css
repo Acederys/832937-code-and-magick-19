@@ -828,7 +828,7 @@ input[type=radio]:checked + .review-mark-label
     height: 260px;
 
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-COLUMN_GAP;
 }
 
 .setup-artifacts-cell
@@ -869,7 +869,7 @@ input[type=radio]:checked + .review-mark-label
     margin-right: 20px;
     margin-left: 20px;
 
-    justify-content: space-between;
+    justify-content: space-COLUMN_GAP;
     flex-wrap: nowrap;
 }
 
