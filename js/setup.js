@@ -1,6 +1,7 @@
 'use strict';
 
 document.querySelector('.setup').classList.remove('hidden');
+
 var NAMES = [
   'Иван',
   'Хуан',
@@ -41,7 +42,13 @@ var eyesColor = [
   'green',
 ];
 
-var randomArrow = [
+var getRandomElement = function(array) {
+  for (var i = 0; i < 9; i++) {
+    var a = Math.floor(Math.random() * array.length);
+  }
+};
+
+var randomArray = [
 {
     name: getRandomElement(NAMES) + '' + getRandomElement(SURNAMES)
   },
@@ -53,21 +60,31 @@ var randomArrow = [
   }
 ];
 
+var newArray = [];
+
+for (var i = 0; i < 4; i++) {
+newArray[i] = {
+    name: getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
+    coatColor: getRandomElement(coatColor),
+    eyeColor: getRandomElement(eyesColor)
+  }
+};
+
 var similarWizardTemplate = document.querySelector('#similar-wizard-template');
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = randomArrow.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = randomArrow.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = randomArrow.eyesColor;
+  wizardElement.querySelector('.setup-similar-label').textContent = randomArray.name;
+  wizardElement.querySelector('.wizard-coat').style.fill = randomArray.coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = randomArray.eyesColor;
 
   return wizardElement;
 }
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < randomArrow.length; i++) {
-  fragment.appendChild(renderWizard(randomArrow[i]));
+for (var i = 0; i < randomArray.length; i++) {
+  fragment.appendChild(renderWizard(randomArray[i]));
 }
 similarListElement.appendChild(fragment);
 
