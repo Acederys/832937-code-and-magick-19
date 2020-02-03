@@ -1,6 +1,10 @@
 'use strict';
 
 document.querySelector('.setup').classList.remove('hidden');
+// находим скрытое окно и убираем .hidden 
+
+var similarListElement = document.querySelector('.setup-similar-list');
+// создали переменную и положили в нее родительскую папку для будущих ячеек
 
 var NAMES = [
   'Иван',
@@ -14,6 +18,8 @@ var NAMES = [
   'Вашингтон',
 ];
 
+// создали массив с именами
+
 var SURNAMES = [
   'да Марья',
   'Верон',
@@ -25,7 +31,9 @@ var SURNAMES = [
   'Ирвинг',
 ];
 
-var coatColor = [
+// создали массив с фамилиями
+
+var COAT_COLOR = [
   'rgb (101, 137, 164)',
   'rgb (241, 43, 107)',
   'rgb (146, 100, 161)',
@@ -34,7 +42,9 @@ var coatColor = [
   'rgb (0, 0, 0)',
 ];
 
-var eyesColor = [
+// создали массив с цветами одежды
+
+var EYES_COLOR = [
   'black',
   'red',
   'blue',
@@ -42,50 +52,43 @@ var eyesColor = [
   'green',
 ];
 
-var getRandomElement = function(array) {
-  for (var i = 0; i < 9; i++) {
-    var a = Math.floor(Math.random() * array.length);
-  }
-};
+// создали массив с цветом глаз
 
-var randomArray = [
-{
-    name: getRandomElement(NAMES) + '' + getRandomElement(SURNAMES)
-  },
-  {
-    color: getRandomElement(coatColor)
-  },
-  {
-    eyas: getRandomElement(eyesColor)
-  }
-];
+var getRandomElement = function(array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+};
 
 var newArray = [];
+var CONST_NUMBER= 4;
 
-for (var i = 0; i < 4; i++) {
-newArray[i] = {
+for (var i = 0; i< CONST_NUMBER; i++) {
+  newArray[i] = {
     name: getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
-    coatColor: getRandomElement(coatColor),
-    eyeColor: getRandomElement(eyesColor)
+    coatColor: getRandomElement(COAT_COLOR),
+    eyesColor: getRandomElement(EYES_COLOR),
   }
 };
 
-var similarWizardTemplate = document.querySelector('#similar-wizard-template');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = randomArray.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = randomArray.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = randomArray.eyesColor;
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+
 
   return wizardElement;
-}
+};
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < randomArray.length; i++) {
-  fragment.appendChild(renderWizard(randomArray[i]));
-}
-similarListElement.appendChild(fragment);
 
+for (var i = 0; i < newArray.length; i++) {
+  fragment.appendChild(renderWizard(newArray[i]));
+}
+
+similarListElement.appendChild(fragment);
 document.querySelector('.setup-similar').classList.remove('hidden');
+
